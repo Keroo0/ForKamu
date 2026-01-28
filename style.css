@@ -5,12 +5,14 @@
 }
 
 body {
-  font-family: 'Dancing Script', cursive;
+  font-family: "Dancing Script", cursive;
   overflow: hidden;
-  background: linear-gradient(135deg, #ff69b4 0%, #ff1493 100%);
+  background-color: #000; /* Balik ke Hitam */
+  color: white;
   min-height: 100vh;
 }
 
+/* Opening Section */
 /* Opening Section */
 .opening-container {
   display: flex;
@@ -18,16 +20,17 @@ body {
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background: linear-gradient(135deg, #ff69b4 0%, #ff1493 100%);
-  color: white;
+  /* Background Pink sesuai request user */
+  background: linear-gradient(135deg, #ffc0cb 0%, #ff69b4 100%);
+  color: #000; /* Teks Hitam */
   text-align: center;
-  animation: fadeIn 1s ease;
+  animation: fadeIn 2s ease;
 }
 
 .opening-container h1 {
   font-size: 3rem;
   margin: 20px 0;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  text-shadow: none; /* Hapus shadow putih agar teks hitam jelas */
 }
 
 .gambarOp {
@@ -35,26 +38,26 @@ body {
   height: 250px;
   border-radius: 20px;
   object-fit: cover;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
   margin-bottom: 20px;
 }
 
 #startButton {
   padding: 15px 40px;
   font-size: 1.2rem;
-  font-family: 'Dancing Script', cursive;
-  background-color: #ff69b4;
-  color: white;
+  font-family: "Dancing Script", cursive;
+  background-color: #000; /* Tombol Hitam */
+  color: #fff; /* Teks Putih */
   border: none;
   border-radius: 50px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.5s ease;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 #startButton:hover {
-  background-color: #ff1493;
-  transform: scale(1.1);
+  background-color: #333;
+  transform: scale(1.05);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
 }
 
@@ -62,7 +65,7 @@ body {
 .main-container {
   position: relative;
   height: 100vh;
-  background: linear-gradient(135deg, #ff69b4 0%, #ff1493 100%);
+  background-color: #000; /* Hitam */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -70,7 +73,7 @@ body {
   color: white;
   overflow: hidden;
   opacity: 0;
-  transition: opacity 0.5s ease;
+  transition: opacity 1.5s ease;
 }
 
 .main-container.show {
@@ -81,20 +84,21 @@ body {
   text-align: center;
   z-index: 100;
   position: relative;
+  padding: 0 20px;
 }
 
 #changetext {
-  font-size: 2.5rem;
+  font-size: 2.8rem;
   margin-bottom: 30px;
-  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
-  min-height: 60px;
-  animation: slideIn 0.5s ease;
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+  min-height: 80px;
+  animation: fadeSlideUp 2s ease;
 }
 
 .text-container img {
   border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-  animation: zoomIn 0.5s ease;
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+  animation: zoomFade 2s ease;
 }
 
 /* Love Animation */
@@ -109,18 +113,25 @@ body {
 
 .love {
   position: absolute;
-  animation: floatUp 10s ease-in forwards;
+  animation: floatUp 15s linear forwards;
   bottom: 0;
+  opacity: 0.7;
 }
 
 @keyframes floatUp {
   0% {
     bottom: -50px;
-    opacity: 1;
+    opacity: 0.8;
+    transform: translateX(0);
+  }
+  50% {
+    opacity: 0.5;
+    transform: translateX(20px);
   }
   100% {
-    bottom: 100vh;
+    bottom: 110vh;
     opacity: 0;
+    transform: translateX(-20px);
   }
 }
 
@@ -134,35 +145,58 @@ body {
   pointer-events: none;
   z-index: 50;
   overflow: hidden;
-  display: none; /* Hidden by default, shown by JS */
+  display: none;
 }
 
 .text-layer {
   position: absolute;
   width: 100%;
+  height: 100%; /* PENTING: Full height agar bottom positioning works */
 }
 
 .text-layer p {
   position: absolute;
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 1.5rem;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 1.2rem;
   white-space: nowrap;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
-  animation: scrollRight 10s linear forwards;
+  /* Default hidden, animated by JS */
+  opacity: 0;
 }
 
-@keyframes scrollRight {
+/* keyframes animasi TEXT bubble */
+@keyframes bubbleFloat {
   0% {
-    transform: translateX(-100vw);
-    opacity: 1;
+    bottom: -10%;
+    opacity: 0;
+    transform: translateX(0) scale(0.8);
+  }
+  10% {
+    opacity: 0.7;
+    transform: translateX(5px) scale(1);
+  }
+  50% {
+    transform: translateX(-15px); /* Goyang kiri */
   }
   100% {
-    transform: translateX(100vw);
+    bottom: 110%; /* Terbang sampai atas layar */
+    opacity: 0;
+    transform: translateX(10px);
+  }
+}
+
+@keyframes floatText {
+  /* Legacy fallback, unused now */
+  0% {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(-20vh);
     opacity: 0;
   }
 }
 
-/* Animations */
+/* Animations Revisi */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -172,96 +206,80 @@ body {
   }
 }
 
-@keyframes slideIn {
-  from {
+@keyframes fadeSlideUp {
+  0% {
     opacity: 0;
-    transform: translateY(-20px);
+    transform: translateY(30px); /* Muncul dari bawah */
   }
-  to {
+  100% {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
-@keyframes zoomIn {
-  from {
+@keyframes zoomFade {
+  0% {
     opacity: 0;
-    transform: scale(0.8);
+    transform: scale(0.9);
   }
-  to {
+  100% {
     opacity: 1;
     transform: scale(1);
   }
 }
 
-/* Apology Container */
-#apology-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.9);
-  color: white;
-  z-index: 10000;
-  text-align: center;
-  animation: fadeIn 1s ease;
-}
+/* Apology Container - REMOVED */
 
-#apology-container h2 {
-  font-size: 2rem;
-  margin-bottom: 10px;
-}
-
-#apology-container p {
-  font-size: 1.2rem;
-  margin-bottom: 30px;
-}
-
-.button-group {
-  display: flex;
-  gap: 20px;
-}
-
-#apology-container button {
-  padding: 12px 24px;
-  font-size: 16px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: transform 0.2s, background 0.2s;
-}
-
-#restartBtn {
-  background-color: #ff69b4; /* Pink */
-  color: white;
-}
-
-#restartBtn:hover {
-  background-color: #ff1493;
-  transform: scale(1.1);
-}
-
-#exitBtn {
-  background-color: #ff4444; /* Red */
-  color: white;
-}
-
-#exitBtn:hover {
-  background-color: #cc0000;
-  transform: scale(1.1);
-}
-
-@media (max-width: 480px) {
-  #apology-container h2 {
-    font-size: 1.5rem;
+/* Responsive & Mobile Optimization */
+@media (max-width: 600px) {
+  body {
+    overflow: hidden; /* Prevent scroll on mobile */
   }
-  .button-group {
-    flex-direction: column;
-    width: 80%;
+
+  .opening-container h1 {
+    font-size: 2rem;
+    padding: 0 20px;
+  }
+
+  .gambarOp {
+    width: 200px;
+    height: 200px;
+  }
+
+  #changetext {
+    font-size: 1.8rem; /* Smaller text for mobile */
+    min-height: 100px; /* More space for wrapped text */
+    padding: 0 10px;
+  }
+
+  .text-container img {
+    max-width: 80% !important; /* Prevent huge images */
+    max-height: 400px !important;
+  }
+
+  /* Floating text adjustments for mobile */
+  .text-layer p {
+    font-size: 1rem; /* Smaller floating text */
+    white-space: normal; /* Allow text to wrap if really needed, though we kept nowrap previously */
+    max-width: 80vw;
+  }
+}
+
+@keyframes scrollSeamless {
+  from {
+    left: -50%;
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.6;
+  }
+  90% {
+    opacity: 0.6;
+  }
+  to {
+    left: 100%;
+    transform: translateX(100%);
+    opacity: 0;
   }
 }

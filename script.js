@@ -6,34 +6,36 @@ document.addEventListener("DOMContentLoaded", () => {
   const music = document.getElementById("bgMusic");
 
   const messages = [
-    "Halo Can! 👋", 
-     "Kamu lagi apaaa",
+    "Halo Can! 👋",
+    "Kamu lagi apaaa",
     "Tau ga sih?",
     "Hari ini lu keliatan...",
     "CANTIK BANGET! 😍",
     "Jangan geer dulu tapi...",
     "Eh tapi emang beneran cantik deng wkwk",
-    "Nih ada hadiah buat lu",
-    "Semoga suka ya manis! 🍬",
-     { type: "image", id: "kucing1" },
-      { type: "image", id: "kucing2" },
-       { type: "image", id: "kucing3" },
-       { type: "jumpscare" } // The END
+    "Maaf alay dikit!",
+    "Bisa ga sih liat kamu skrg",
+    "hampir pingsan nih",
+    "butuh vitamin U wkwk",
+    { type: "image", id: "kucing1" },
+    { type: "image", id: "kucing2" },
+    { type: "image", id: "kucing3" },
+    "See you next time! ❤️",
   ];
 
   let currentMessage = 0;
-  let messageInterval; // Store interval ID
+  let messageInterval;
 
-   function showNextMessage() {
+  function showNextMessage() {
     // Sembunyikan semua gambar & teks
-    document.querySelectorAll(".text-container img").forEach(img => {
+    document.querySelectorAll(".text-container img").forEach((img) => {
       img.style.display = "none";
     });
     changetext.style.display = "none";
 
-    // Jika sudah mencapai akhir playlist (jumpscare)
+    // Loop logic
     if (currentMessage >= messages.length) {
-        return; 
+      currentMessage = 0;
     }
 
     const current = messages[currentMessage];
@@ -41,67 +43,38 @@ document.addEventListener("DOMContentLoaded", () => {
     if (typeof current === "string") {
       changetext.style.display = "block";
       changetext.textContent = current;
+
+      // Reset Animasi agar main lagi setiap ganti teks
+      changetext.style.animation = "none";
+      changetext.offsetHeight; /* trigger reflow */
+      changetext.style.animation = "fadeSlideUp 2s ease";
     } else if (current.type === "image") {
       const imageElement = document.getElementById(current.id);
       if (imageElement) {
         imageElement.style.display = "block";
+        imageElement.style.animation = "none";
+        imageElement.offsetHeight;
+        imageElement.style.animation = "zoomFade 2s ease";
       }
-    } else if (current.type === "jumpscare") {
-        triggerJumpscare();
-        return; // Stop looping
     }
 
-    currentMessage = (currentMessage + 1);
+    currentMessage = currentMessage + 1;
   }
-
-  function triggerJumpscare() {
-      clearInterval(messageInterval); // Hentikan loop
-      music.pause(); // Stop musik romantis
-      
-      const scream = document.getElementById("screamSound");
-      const kagetImg = document.getElementById("kagetImg");
-
-      // Play jumpscare
-      if(scream) scream.play();
-      if(kagetImg) kagetImg.style.display = "block";
-
-      // Vibrasi kalo di HP
-      if (navigator.vibrate) navigator.vibrate([200, 100, 200]);
-
-      // Tampilkan "Sorry" setelah 3 detik
-      setTimeout(() => {
-          if(kagetImg) kagetImg.style.display = "none";
-          document.getElementById("apology-container").style.display = "flex";
-      }, 3000);
-  }
-
 
   startButton.addEventListener("click", () => {
     opening.style.display = "none";
     main.classList.add("show");
     music.play().catch((e) => {
-        console.log("Auto-play failed:", e);
-  });
-    // Ganti teks pertama langsung
+      console.log("Auto-play failed:", e);
+    });
+
     showNextMessage();
 
-    // Lanjutkan otomatis setiap 3 detik
-    messageInterval = setInterval(showNextMessage, 3000);
+    // Lanjutkan otomatis setiap 5 detik
+    messageInterval = setInterval(showNextMessage, 5000);
 
     // Mulai animasi background (Love & Text)
     startBackgroundAnimations();
-  });
-
-  // Tombol Ulangi
-  document.getElementById("restartBtn").addEventListener("click", () => {
-      location.reload();
-  });
-
-  // Tombol Keluar (Tutup tab / redirect)
-  document.getElementById("exitBtn").addEventListener("click", () => {
-      window.close(); // Hanya jalan kalo dibuka via script
-      // Alternatif redirect kalo window.close ga jalan
-      window.location.href = "about:blank"; 
   });
 });
 
@@ -109,7 +82,7 @@ function startBackgroundAnimations() {
   // --- Love Animation ---
   function createLove() {
     const love = document.createElement("img");
-    love.src = "./gambar/love.png"; // Ganti dengan path gambar love kamu
+    love.src = "./gambar/love.png";
     love.classList.add("love");
 
     const size = Math.random() * 20 + 20;
@@ -118,61 +91,83 @@ function startBackgroundAnimations() {
 
     love.style.left = `${Math.random() * 100}%`;
 
-    // 💡 Durasi animasi diperpanjang: 10–20 detik
-    const duration = Math.random() * 10 + 10; // 10s–20s
+    const duration = Math.random() * 10 + 15;
     love.style.animationDuration = `${duration}s`;
 
-    love.style.opacity = Math.random();
+    love.style.opacity = Math.random() * 0.7;
 
     document.getElementById("love-container").appendChild(love);
 
-    // 💡 Hapus setelah durasi + buffer
-    setTimeout(() => {
-      love.remove();
-    }, duration * 1000 + 2000);
+    setTimeout(
+      () => {
+        love.remove();
+      },
+      duration * 1000 + 2000,
+    );
   }
 
-  // 💡 Interval lebih lambat agar tidak terlalu padat
-  setInterval(createLove, 1000);
+  setInterval(createLove, 1500);
 
-  // --- Floating Text Animation ---
-  const allTexts = Array.from(document.querySelectorAll(".layer1 p, .layer2 p, .layer3 p"));
-  const lanes = [
-    { top: '10%', leftRange: [10, 90] },  // atas
-    { top: '30%', leftRange: [10, 90] },  // tengah atas
-    { top: '50%', leftRange: [10, 90] },  // tengah
-    { top: '70%', leftRange: [10, 90] },  // tengah bawah
-    { top: '90%', leftRange: [10, 90] },  // bawah
-  ];
+  // --- Improved Floating Text Animation (Bubbling) ---
+  const allTexts = Array.from(
+    document.querySelectorAll(".layer1 p, .layer2 p, .layer3 p"),
+  );
 
-  function getRandomFrom(arr) {
-    return arr[Math.floor(Math.random() * arr.length)];
-  }
+  // Hide all initially
+  allTexts.forEach((p) => (p.style.display = "none"));
 
-  function showRandomText() {
-    const textEl = getRandomFrom(allTexts);
-    const lane = getRandomFrom(lanes);
+  // Jalur HORIZONTAL yang tersedia (persentase left)
+  // Agar nyebar dari kiri ke kanan: 5%, 20%, 35%, ..., 90%
+  const lanes = [5, 20, 35, 50, 65, 80, 95];
+  let availableLanes = [...lanes];
 
-    // Reset style dulu
+  function spawnText() {
+    // Kalau semua penuh, tunggu next cycle
+    if (availableLanes.length === 0) {
+      return;
+    }
+
+    const textEl = allTexts[Math.floor(Math.random() * allTexts.length)];
+
+    // Pick lane (posisi X)
+    const laneIndex = Math.floor(Math.random() * availableLanes.length);
+    const leftPos = availableLanes[laneIndex];
+
+    // Lepas dari pool
+    availableLanes.splice(laneIndex, 1);
+
+    // Reset element
     textEl.style.display = "block";
+    textEl.style.left = `${leftPos}%`;
 
-    // Random left di dalam rentang lane
-    const left = Math.random() * (lane.leftRange[1] - lane.leftRange[0]) + lane.leftRange[0];
+    // Set posisi start (bawah layar) via CSS sudah dihandle, tapi kita reset lagi
+    textEl.style.bottom = "-10%";
+    textEl.style.top = "auto"; // Pastikan top unset agar bottom works
 
-    textEl.style.top = lane.top;
-    textEl.style.left = `${left}%`;
-
-    // Trigger ulang animasi
     textEl.style.animation = "none";
-    void textEl.offsetWidth; // trigger reflow
-    textEl.style.animation = "";
+    textEl.offsetHeight;
+
+    // Random Duration for Bubble Rise (perlahan)
+    const speed = Math.random() * 5 + 10; // 10s - 15s naik ke atas
+    textEl.style.animation = `bubbleFloat ${speed}s ease-in forwards`;
+
+    // Free up lane lebih cepat daripada durasi animasi,
+    // karena bubble naik jadi lane bawahnya kosong lagi setelah bbrp detik
+    setTimeout(() => {
+      availableLanes.push(leftPos);
+    }, 4000);
+
+    // Hide after animation finishes
+    setTimeout(() => {
+      textEl.style.display = "none";
+    }, speed * 1000);
   }
 
-  setInterval(showRandomText, 2000);
-  
-  // Tampilkan container text floating yang sebelumnya di-hide
-  const floatingContainer = document.querySelector('.floating-text-layers');
-  if(floatingContainer) {
-      floatingContainer.style.display = "block";
+  // Spawn lebih sering karena bubble biasanya banyak
+  setInterval(spawnText, 2500);
+
+  const floatingContainer = document.querySelector(".floating-text-layers");
+  if (floatingContainer) {
+    floatingContainer.style.display = "block";
   }
 }

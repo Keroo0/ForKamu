@@ -1,79 +1,104 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Buat kamu Can</title>
-  <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
-
-</head>
-<body>
-  <!-- Opening Section -->
-  <section id="opening" class="opening-container">
-    <img class="gambarOp" src="./gambar/catbunga.jpg" alt="hehe">
-    <h1>Halo Can 😍</h1>
-    <button id="startButton">Masuk</button>
-  </section>
-
-  <!-- Main Section -->
-    <section id="main" class="main-container">
-        <div id="love-container"></div>
-    <div class="text-container">
-        <h1 id="changetext"></h1>
-        <img id="kucing1" src="./gambar/catlove.jpg" alt="For You" loading="lazy" style="display: none; max-width: 200px; max-height: 500px; margin-top: 20px;" />
-        <img id="kucing2" src="./gambar/catbunga.jpg" alt="For You" loading="lazy" style="display: none; max-width: 200px; max-height: 500px; margin-top: 20px;" />
-        <img id="kucing3" src="./gambar/catmelet.jpg" alt="For You" loading="lazy" style="display: none; max-width: 200px; max-height: 500px; margin-top: 20px;" />
-        
-        <!-- Jumpscare Image (Hidden by default) -->
-        <img id="kagetImg" src="./gambar/kaget.jpg" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; object-fit: cover; z-index: 9999;">
-    </div>
-
-    <!-- Apology & Buttons Section -->
-    <div id="apology-container" style="display: none;">
-      <h2>Sorry iseng dikit ✌️🤣</h2>
-      <p>Kaget ga? wkwk</p>
-      <div class="button-group">
-        <button id="restartBtn">Ulangi Awal</button>
-        <button id="exitBtn">Keluar</button>
-      </div>
-    </div>
-    <section class="floating-text-layers">
-  <div class="text-layer layer1">
-    <p>Cantik banget sih hari ini 😍</p>
-    <p>Senyumnya dikontrol dong,</p>
-    <p>Manisnya kelewatan!</p>
-    <p>Can, kok lu gemes?</p>
-    <p>Pasti lagi mikirin gue 😜</p>
-    <p>Semangat cantiknya aku</p>
-    <p>Awas diabetes liat kaca</p>
-  </div>
-  <div class="text-layer layer2">
-    <p>Jangan lupa makan enak</p>
-    <p>Sehat-sehat ya manusia bandung</p>
-    <p>Kangen ketawanya Can</p>
-    <p>Liat cermin deh, ada bidadari</p>
-    <p>Love you sekebon 🌳</p>
-    <p>Happy terus ya Can!</p>
-    <p>Moodboster aku nih</p>
-  </div>
-  <div class="text-layer layer3">
-    <p>Rejeki anak soleh liat lu</p>
-    <p>Jangan sedih-sedih ya</p>
-    <p>Bahagia terus Can</p>
-    <p>Miss you to the moon 🌙</p>
-    <p>Gemoy banget heran</p>
-    <p>Stay pretty as always</p>
-    <p>Kesayangan siapa ni? 😋</p>
-  </div>
-</section>
-
-
-
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Buat kamu Can</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Opening Section -->
+    <section id="opening" class="opening-container">
+      <img class="gambarOp" src="./gambar/catbunga.jpg" alt="hehe" />
+      <h1>Halo Can 😍</h1>
+      <button id="startButton">Masuk</button>
     </section>
-  
-  <audio id="bgMusic" src="./musik/lovesong1.mp3" preload="none"></audio>
-  <audio id="screamSound" src="./musik/kaget.mp3" preload="none"></audio>
-  <script src="script.js"></script>
-</body>
+
+    <!-- Main Section -->
+    <section id="main" class="main-container">
+      <div id="love-container"></div>
+      <div class="text-container">
+        <h1 id="changetext"></h1>
+        <img
+          id="kucing1"
+          src="./gambar/catlove.jpg"
+          alt="For You"
+          loading="lazy"
+          style="
+            display: none;
+            max-width: 200px;
+            max-height: 500px;
+            margin-top: 20px;
+          "
+        />
+        <img
+          id="kucing2"
+          src="./gambar/catbunga.jpg"
+          alt="For You"
+          loading="lazy"
+          style="
+            display: none;
+            max-width: 200px;
+            max-height: 500px;
+            margin-top: 20px;
+          "
+        />
+        <img
+          id="kucing3"
+          src="./gambar/catmelet.jpg"
+          alt="For You"
+          loading="lazy"
+          style="
+            display: none;
+            max-width: 200px;
+            max-height: 500px;
+            margin-top: 20px;
+          "
+        />
+      </div>
+
+      <!-- Floating Text Section -->
+      <section class="floating-text-layers">
+        <!-- Layer 1 -->
+        <div class="text-layer layer1">
+          <p>Cantik banget sih makhluk ini 😍</p>
+          <p>Kenapa ada bidadari di bumi?</p>
+          <p>Manisnya bikin diabetes</p>
+          <p>Can, kok lu gemes?</p>
+          <p>makhluk imut apa ini</p>
+          <p>Semangat cantiknya aku</p>
+          <p>teteh manisnya kelewatan</p>
+        </div>
+
+        <!-- Layer 2 -->
+        <div class="text-layer layer2">
+          <p>Jangan lupa makan enak</p>
+          <p>Sehat-sehat ya manusia bandung</p>
+          <p>Kangen ketawanya Can</p>
+          <p>Liat cermin deh, ada bidadari</p>
+          <p>Love you sekebon 🌳</p>
+          <p>jan mati ya Can!hehe</p>
+          <p>Moodboster aku nih</p>
+        </div>
+
+        <!-- Layer 3 -->
+        <div class="text-layer layer3">
+          <p>Rejeki anak soleh liat lu</p>
+          <p>Jangan sedih-sedih ya</p>
+          <p>Sehat terus Can</p>
+          <p>Miss you to the moon 🌙</p>
+          <p>Gemoy banget heran</p>
+          <p>Stay pretty as always</p>
+          <p>Kesayangan siapa ni? 😋</p>
+        </div>
+      </section>
+    </section>
+
+    <audio id="bgMusic" src="./musik/lovesong1.mp3" preload="none"></audio>
+    <script src="script.js"></script>
+  </body>
 </html>
